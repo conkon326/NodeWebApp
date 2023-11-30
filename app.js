@@ -11,6 +11,13 @@ const app = express();
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
 
+// グローバルメソッドをviewエンジンに渡す
+app.use((req, res, next) => {
+  res.locals.moment = require("moment");
+  res.locals.padding = require("./lib/math/math.js").padding;
+  next();
+});
+
 // 静的コンテンツのルーティング
 app.use(favicon(path.join(__dirname, "/public/favicon.ico")));
 app.use("/public", express.static(path.join(__dirname, "/public")));
@@ -18,21 +25,20 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // set アクセスログ
 app.use(accesslogger());
 
-//動的コンテンツのルーティング
+// 動的コンテンツのルーティング
 app.use("/", require("./routes/index.js"));
 app.use("/test", async (req, res, next) => {
   const { MySQLClient, sql } = require("./lib/database/client.js");
   var data;
 
   try {
-    await MySQLClient.connect();
-    data = await MySQLClient.query(await sql("SELECT_SHOP_BASIC_BY_ID"),[1]);
+    // データベースクエリを実行
+    data = await MySQLClient.executeQuery(await sql("SELECT_SHOP_BASIC_BY_ID"), [1]);
     console.log(data);
   } catch (err) {
     next(err);
-  } finally {
-    await MySQLClient.end();
   }
+
   res.end("ok");
 });
 
@@ -41,6 +47,6 @@ app.use(applicationlogger());
 
 // WEBアプリの実行
 app.listen(PORT, () => {
+  // アプリケーションがリスニングを開始したことをログに出力
   logger.application.info(`Application listening at :${PORT}`);
 });
-
