@@ -26,21 +26,8 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 app.use(accesslogger());
 
 // 動的コンテンツのルーティング
+app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
-app.use("/test", async (req, res, next) => {
-  const { MySQLClient, sql } = require("./lib/database/client.js");
-  var data;
-
-  try {
-    // データベースクエリを実行
-    data = await MySQLClient.executeQuery(await sql("SELECT_SHOP_BASIC_BY_ID"), [1]);
-    console.log(data);
-  } catch (err) {
-    next(err);
-  }
-
-  res.end("ok");
-});
 
 // Set アプリケーションログ
 app.use(applicationlogger());
