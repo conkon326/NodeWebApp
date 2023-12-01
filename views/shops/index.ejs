@@ -74,6 +74,12 @@
             </div>
           </div>
           <!-- レビュー -->
+
+          <% for ( var review of reviews){ %>
+          <% review.shop = id %>
+          <%- include("./review.ejs" , review) %>
+          <% } %>
+
         </div>
         <div class="col-md-4">
           <h2 class="border-bottom mt-5 mb-5 pb-2"><i class="fa fa-fw fa-heart"></i>おすすめのお店</h2>

@@ -11,24 +11,26 @@ router.get("/:id", async (req, res, next) => {
   // リクエストパラメータからIDを取得
   var id = req.params.id;
 
-  try {
-    // MySQLクエリを非同期で実行し、結果を待つ
-    const result = await Promise.all([
-      MySQLClient.executeQuery(
-        await sql("SELECT_SHOP_DETAIL_BY_ID"),
-        [id]
-      )
-    ]);
-
+  // MySQLクエリを非同期で実行し、結果を待つ
+  Promise.all([
+    MySQLClient.executeQuery(
+      await sql("SELECT_SHOP_DETAIL_BY_ID"),
+      [id]
+    ),
+    MySQLClient.executeQuery(
+      await sql("SELECT_SHOP_REVIEW_BY_SHOP_ID"),
+      [id]
+    )
+  ]).then((result) => {
     // 実行結果からデータを取得
     var data = result[0][0];
-
+    data.reviews = result[1] || [];
     // レンダリングしてクライアントにデータを送信
     res.render("./shops/index.ejs", data);
-  } catch (err) {
+  }).catch((err) => {
     // エラーが発生した場合は次のミドルウェアにエラーを渡す
     next(err);
-  }
+  });
 });
 
 // ルーターをエクスポート
