@@ -8,6 +8,8 @@ SELECT
   t_review.description
 FROM
   t_review
-  LEFT JOIN t_user ON t_review.user_id = t_user.id
+  LEFT JOIN
+    t_user
+  ON  t_review.user_id = t_user.id
 WHERE
   t_review.shop_id = ?
