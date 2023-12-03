@@ -1,39 +1,40 @@
 const path = require("path");
 const LOG_ROOT_DIR = process.env.LOG_ROOT_DIR || path.join(__dirname, "../logs");
+
 module.exports = {
   appenders: {
-    consoleLogAppender: {
+    ConsoleLogAppender: {
       type: "console"
     },
-    ApplicationLogAppender: {
+    AppliationLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./application.log"),
-      pattern: "yyyMMdd",
-      daysTokeeo: 7
+      pattern: "yyyyMMdd",
+      daysToKeep: 7
     },
     AccessLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./access.log"),
-      pattern: "yyyMMdd",
-      daysTokeeo: 7
+      pattern: "yyyyMMdd",
+      daysToKeep: 7
     }
   },
   categories: {
     "default": {
-      appenders: ["consoleLogAppender"],
+      appenders: ["ConsoleLogAppender"],
       level: "ALL"
     },
     "application": {
       appenders: [
-        "ApplicationLogAppender",
-        "consoleLogAppender"
+        "AppliationLogAppender",
+        "ConsoleLogAppender"
       ],
       level: "INFO"
     },
     "access": {
       appenders: [
         "AccessLogAppender",
-        "consoleLogAppender"
+        "ConsoleLogAppender"
       ],
       level: "INFO"
     }

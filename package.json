@@ -6,17 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "con",
-  "license": "ISC",
+  "author": "Akinari Tsugo",
+  "license": "MIT",
   "devDependencies": {
-    "eslint": "8.54.0",
-    "eslint-plugin-react": "^7.33.2"
+    "eslint": "^7.25.0"
   },
   "dependencies": {
     "@garafu/mysql-fileloader": "^0.0.3",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "log4js": "^6.9.1",
+    "log4js": "^6.3.0",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "round-to": "^5.0.0",
