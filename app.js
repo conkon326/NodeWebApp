@@ -25,6 +25,10 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // set アクセスログ
 app.use(accesslogger());
 
+//set middlewere /POSTを読み込むためのもの
+app.use(express.urlencoded({ extended: true }));
+
+
 // 動的コンテンツのルーティング
 app.use("/account", require("./routes/account.js"));
 app.use("/search", require("./routes/search.js"));
