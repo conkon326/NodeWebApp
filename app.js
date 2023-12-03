@@ -5,6 +5,7 @@ const applicationlogger = require("./lib/log/applicationlogger.js");
 const accesslogger = require("./lib/log/accesslogger.js");
 const express = require("express");
 const favicon = require("serve-favicon");
+const { sqlSync } = require("@garafu/mysql-fileloader");
 const app = express();
 
 // expressの設定
@@ -26,6 +27,23 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 app.use(accesslogger());
 
 // 動的コンテンツのルーティング
+app.get("/test", async (rew, res, next) => {
+  const { MySQLClient } = require("./lib/database/client.js");
+  var tran;
+  try {
+    tran = await MySQLClient.beginTransaction();
+    await tran.executeQuery(
+      "UPDATE t_shop SET SCORE =? WHERE id =?",
+      [3.92, 1]
+    );
+    throw new Error("Test exepation");
+    // await tran.commit();
+    res.end("ok");
+  } catch (err) {
+    await tran.rollback();
+    next(err);
+  }
+});
 app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
