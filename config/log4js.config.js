@@ -10,13 +10,13 @@ module.exports = {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./application.log"),
       pattern: "yyyyMMdd",
-      daysToKeep: 7
+      numBackups: 7
     },
     AccessLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./access.log"),
       pattern: "yyyyMMdd",
-      daysToKeep: 7
+      numBackups: 7
     }
   },
   categories: {
