@@ -5,6 +5,7 @@ const accesslogger = require("./lib/log/accesslogger.js");
 const applicationlogger = require("./lib/log/applicationlogger.js");
 const express = require("express");
 const favicon = require("serve-favicon");
+const cookie = require("cookie-parser");
 const app = express();
 
 // Express settings
@@ -26,9 +27,16 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 app.use(accesslogger());
 
 // Set middleware
+app.use(cookie());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  console.log(req.cookies.message);
+  res.cookie("message", "HEllo world");
+  next();
+});
 
 // Dynamic resource rooting.
+
 app.use("/account", require("./routes/account.js"));
 app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
