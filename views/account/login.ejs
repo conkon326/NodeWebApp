@@ -38,6 +38,9 @@
               <input type="submit" class="btn btn-primary" value="ログイン" />
             </div>
           </div>
+          <%if(message && message.length !==0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+          <% } %>
         </form>
       </div>
 
@@ -49,4 +52,5 @@
 
   <%- include("../_share/javascripts.ejs") %>
 </body>
+
 </html>
