@@ -118,6 +118,7 @@ router.post("/regist/execute", async (req, res, next) => {
   res.clearCookie("_csrf");
 
   res.render("./account/reviews/regist-complete.ejs", { shopId });
+
 });
 
 module.exports = router;
