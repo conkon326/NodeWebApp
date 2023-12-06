@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { MySQLClient, sql } = require("../lib/database/client.js");
+const { MySQLClient, sql } = require("../lib/database/client.js");5
 const moment = require("moment");
 const tokens = new (require("csrf"))();
 const DATE_FORMAT = "YYYY/MM/DD";
@@ -73,8 +73,6 @@ router.post("/regist/confirm", (req, res) => {
   res.render("./account/reviews/regist-confirm.ejs", { shopId, shopName, review });
 });
 
-
-// 登録処理
 router.post("/regist/execute", async (req, res, next) => {
   var secret = req.session._csrf;
   var token = req.cookies._csrf;
@@ -84,11 +82,10 @@ router.post("/regist/execute", async (req, res, next) => {
     return;
   }
 
-
   var error = validateReviewData(req);
   var review = createReviewData(req);
   var { shopId, shopName } = req.body;
-  var userId = "1";     // TODO: ログイン実装後に更新
+  var userId = req.user.id;
   var transaction;
 
   if (error) {
@@ -122,9 +119,8 @@ router.post("/regist/execute", async (req, res, next) => {
   res.redirect(`/account/reviews/regist/complete?shopId=${shopId}`);
 });
 
-router.get("/regist/complete", (req, res, next) => {
+router.get("/regist/complete", (req, res) => {
   res.render("./account/reviews/regist-complete.ejs", { shopId: req.query.shopId });
 });
-
 
 module.exports = router;
