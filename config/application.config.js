@@ -5,7 +5,7 @@ module.exports = {
     ACCOUNT_LOCK_WINDOW: 30,
     ACCOUNT_LOCK_THRESHOLE: 5,
     ACCOUNT_LOCK_TIME: 60,
-    MAX_LOGIN_HISTORY: 20,
+    MAX_LOGIN_HISTORY: 5,
   },
   search: {
     MAX_ITEMS_PER_PAGE: 5
