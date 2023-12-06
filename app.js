@@ -54,7 +54,7 @@ app.use(session({
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
-app.use(...accesscontrol.initalize());
+app.use(...accesscontrol.initialize());
 
 
 // Dynamic resource rooting.

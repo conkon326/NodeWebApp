@@ -1,6 +1,6 @@
-UPDATE 
-t_user
+UPDATE
+  t_user
 SET
-locked = ?
+  locked = ?
 WHERE
-id =?
+  id = ?

@@ -1,7 +1,9 @@
-DELETE FROM t_login_history
+DELETE FROM
+  t_login_history
 WHERE
   user_id = ?
-  AND login <=
+  AND
+  login <=
   (
     SELECT
       login
@@ -12,12 +14,8 @@ WHERE
         FROM
           t_login_history
         WHERE
-          USER_id = ?
-        ORDER BY
-          login DESC
-        LIMIT
-          1
-        OFFSET
-          ?
+          user_id = ?
+        ORDER BY login DESC
+        LIMIT 1 OFFSET ?
       ) AS tmp
   )
