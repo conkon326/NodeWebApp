@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { MySQLClient, sql } = require("../lib/database/client.js");5
+const { MySQLClient, sql } = require("../lib/database/client.js");
 const moment = require("moment");
 const tokens = new (require("csrf"))();
 const DATE_FORMAT = "YYYY/MM/DD";

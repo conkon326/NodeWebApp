@@ -12,13 +12,8 @@ router.get("/login", (req, res) => {
 router.post("/login", authenticate());
 
 router.post("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send("ログアウトエラー");
-    }
-    res.redirect("/account/login");
-  });
+  req.logout();
+  res.redirect("/account/login");
 });
 
 router.use("/reviews", authorize(PRIVILEGE.NORMAL), require("./account.reviews.js"));

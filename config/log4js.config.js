@@ -1,5 +1,5 @@
 const path = require("path");
-const LOG_ROOT_DIR = process.env.LOG_ROOT_DIR || path.join(__dirname, "../logs");
+const LOG_ROOT_DIR = process.env.LOG_ROOT_DIR || path.join(process.cwd(), "./logs");
 
 module.exports = {
   appenders: {
@@ -10,13 +10,13 @@ module.exports = {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./application.log"),
       pattern: "yyyyMMdd",
-      numBackups: 7
+      daysToKeep: 7
     },
     AccessLogAppender: {
       type: "dateFile",
       filename: path.join(LOG_ROOT_DIR, "./access.log"),
       pattern: "yyyyMMdd",
-      numBackups: 7
+      daysToKeep: 7
     }
   },
   categories: {

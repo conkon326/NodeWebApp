@@ -1,6 +1,6 @@
 SELECT
   *
 FROM
-  t_shop
+  t_user
 WHERE
-  id = ?
+  email = ?
